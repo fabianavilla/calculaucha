@@ -36,8 +36,32 @@
             text-shadow: 3px 3px 0px #000000;
             line-height: 1.5;
         }
+
+        .btn-espiar {
+            background-color: #000000;
+            color: #ff7300;
+            border: 4px dashed #ff7300;
+            margin-bottom: 20px;
+            padding: 15px;
+            font-size: 0.6rem;
+            width: 100%;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        .btn-espiar:hover {
+            background-color: #ff7300;
+            color: #000000;
+        }
+
+        .btn-espiar:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px #000000;
+        }
         
         .diccionario { 
+            display: none;
             background: #000000; 
             padding: 15px; 
             font-size: 0.55rem; 
@@ -106,45 +130,14 @@
             box-shadow: 0px 0px 0px #000000;
         }
         
-        .btn-valor { 
-            background-color: #1d4ed8;
-            color: #ffffff; 
-        }
-        
-        .btn-valor:hover { 
-            background-color: #2563eb;
-        }
-        
-        .btn-operador { 
-            background-color: #ff7300;
-            color: #ffffff; 
-            font-size: 1rem; 
-        }
-        
-        .btn-operador:hover { 
-            background-color: #fb923c;
-        }
-        
-        .btn-clear { 
-            background-color: #dc2626;
-            color: white; 
-            grid-column: span 1; 
-        }
-        
-        .btn-clear:hover { 
-            background-color: #ef4444;
-        }
-        
-        .btn-equal { 
-            background-color: #ff7300;
-            color: white; 
-            font-size: 1.2rem; 
-            grid-column: span 2; 
-        }
-        
-        .btn-equal:hover { 
-            background-color: #fb923c;
-        }
+        .btn-valor { background-color: #1d4ed8; color: #ffffff; }
+        .btn-valor:hover { background-color: #2563eb; }
+        .btn-operador { background-color: #ff7300; color: #ffffff; font-size: 1rem; }
+        .btn-operador:hover { background-color: #fb923c; }
+        .btn-clear { background-color: #dc2626; color: white; grid-column: span 1; }
+        .btn-clear:hover { background-color: #ef4444; }
+        .btn-equal { background-color: #ff7300; color: white; font-size: 1.2rem; grid-column: span 2; }
+        .btn-equal:hover { background-color: #fb923c; }
     </style>
 </head>
 <body>
@@ -152,7 +145,13 @@
     <div class="contenedor">
         <h2>🐭CALCULAUCHA🐭</h2>
         
+        <button class="btn-espiar" onclick="toggleValores()">ESPIAR VALORES</button>
 
+        <div class="diccionario" id="cajaValores">
+            <strong>VALORES</strong>
+            YUTA: 7 | TUYA: 9 | CANDIDA: -1<br><br>
+            LIBRE: 10 | LOCA: 8 | LINDA: 5
+        </div>
 
         <div class="pantalla-completa">
             <input type="text" id="pantallaFormula" readonly placeholder="...">
@@ -179,6 +178,15 @@
     </div>
 
     <script>
+        function toggleValores() {
+            const caja = document.getElementById("cajaValores");
+            if (caja.style.display === "block") {
+                caja.style.display = "none";
+            } else {
+                caja.style.display = "block";
+            }
+        }
+
         const mapaValores = {
             "YUTA": 7,
             "TUYA": 9,
