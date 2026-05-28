@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Laucha</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding-top: 50px; }
+        .contenedor { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 100%; }
+        input { width: 90%; padding: 10px; margin-bottom: 15px; font-size: 16px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
+        button { background-color: #007bff; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .diccionario { text-align: left; background: #e9ecef; padding: 10px; border-radius: 5px; font-size: 14px; margin-bottom: 20px; }
+        #resultado { margin-top: 20px; font-size: 18px; font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <h2>Calculadora Laucha 🐭</h2>
+        
+        <div class="diccionario">
+            <strong>Valores:</strong><br>
+            YUTA: 7 | TUYA: 9 | CANDIDA: -1<br>
+            LIBRE: 10 | LOCA: 8 | LINDA: 5
+        </div>
+
+        <p>Escribe tu cálculo (ej: YUTA + LINDA)</p>
+        <input type="text" id="pantalla" placeholder="YUTA * LOCA" onkeyup="if(event.key === 'Enter') calcular()">
+        <button onclick="calcular()">Calcular</button>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        const valores = {
+            "YUTA": 7,
+            "TUYA": 9,
+            "CANDIDA": -1,
+            "LIBRE": 10,
+            "LOCA": 8,
+            "LINDA": 5
+        };
+
+        function calcular() {
+            let entrada = document.getElementById("pantalla").value.trim().toUpperCase();
+            let resultadoDiv = document.getElementById("resultado");
+            let partes = entrada.split(" ");
+
+            if (partes.length !== 3) {
+                resultadoDiv.innerHTML = "❌ Error: Usa el formato 'VALOR OPERADOR VALOR' (con espacios).";
+                return;
+            }
+
+            let termino1 = partes[0];
+            let operador = partes[1];
+            let termino2 = partes[2];
+
+            // Obtener números del diccionario o leer si ingresaron un número normal
+            let num1 = valores[termino1] !== undefined ? valores[termino1] : parseFloat(termino1);
+            let num2 = valores[termino2] !== undefined ? valores[termino2] : parseFloat(termino2);
+
+            if (isNaN(num1) || isNaN(num2)) {
+                resultadoDiv.innerHTML = "❌ Error: Verifica que las palabras o números sean correctos.";
+                return;
+            }
+
+            let resultado = 0;
+            if (operador === '+') resultado = num1 + num2;
+            else if (operador === '-') resultado = num1 - num2;
+            else if (operador === '*') resultado = num1 * num2;
+            else if (operador === '/') {
+                if (num2 === 0) {
+                    resultadoDiv.innerHTML = "❌ Error: ¡No se puede dividir por cero!";
+                    return;
+                }
+                resultado = num1 / num2;
+            } else {
+                resultadoDiv.innerHTML = "❌ Error: Operador no reconocido (+, -, *, /).";
+                return;
+            }
+
+            resultadoDiv.innerHTML = `✅ RESULTADO: ${resultado}`;
+        }
+    </script>
+</body>
+</html>
